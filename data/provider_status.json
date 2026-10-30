@@ -1,0 +1,92 @@
+[
+ {
+  "provider": "nominatim",
+  "state": "healthy",
+  "requires_auth": false,
+  "endpoint": "https://nominatim.openstreetmap.org/status",
+  "http_status": 200,
+  "latency_ms": 641,
+  "detail": "status=OK"
+ },
+ {
+  "provider": "usgs_earthquakes",
+  "state": "healthy",
+  "requires_auth": false,
+  "endpoint": "https://earthquake.usgs.gov/fdsnws/event/1/query",
+  "http_status": 200,
+  "latency_ms": 1641,
+  "detail": "216 events (M>=4.5, last 365 days in the India envelope)"
+ },
+ {
+  "provider": "firms",
+  "state": "unconfigured",
+  "requires_auth": true,
+  "endpoint": "https://firms.modaps.eosdis.nasa.gov/api/area",
+  "http_status": null,
+  "latency_ms": null,
+  "detail": "FIRMS_MAP_KEY is not set; active-fire layer unavailable (no synthetic fallback)."
+ },
+ {
+  "provider": "open_meteo",
+  "state": "healthy",
+  "requires_auth": false,
+  "endpoint": "https://archive-api.open-meteo.com/v1/archive",
+  "http_status": 200,
+  "latency_ms": 968,
+  "detail": "probe returned 4 days"
+ },
+ {
+  "provider": "nasa_earthdata",
+  "state": "unconfigured",
+  "requires_auth": true,
+  "endpoint": "https://cmr.earthdata.nasa.gov/search/collections.umm-json",
+  "http_status": 200,
+  "latency_ms": 1188,
+  "detail": "CMR metadata OK (31 hits, public); protected access: EARTHDATA_TOKEN is not set. Public CMR metadata still works; protected data downloads stay unavailable."
+ },
+ {
+  "provider": "osm_overpass",
+  "state": "unavailable",
+  "requires_auth": false,
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "http_status": null,
+  "latency_ms": null,
+  "detail": "OpenStreetMap infrastructure data is temporarily unavailable (overpass-api.de: osm_overpass kept failing: upstream HTTP 502; maps.mail.ru: ReadTimeout; overpass.private.coffee: ReadTimeout). Nothing was substituted for it."
+ },
+ {
+  "provider": "osm_local",
+  "state": "unconfigured",
+  "requires_auth": false,
+  "endpoint": "C:\\Users\\piyus\\OneDrive\\Desktop\\7th sem\\suraksha-gis\\data\\osm_extracts\\manifest.json",
+  "http_status": null,
+  "latency_ms": null,
+  "detail": "No local OSM extract manifest at C:\\Users\\piyus\\OneDrive\\Desktop\\7th sem\\suraksha-gis\\data\\osm_extracts\\manifest.json. Lifelines fall back to Overpass; create the manifest to serve them locally."
+ },
+ {
+  "provider": "imd_alerts",
+  "state": "unconfigured",
+  "requires_auth": false,
+  "endpoint": null,
+  "http_status": null,
+  "latency_ms": null,
+  "detail": "IMD_ALERTS_URL is not configured. No live feed was queried, so no alert was blended into this score."
+ },
+ {
+  "provider": "cwc_gauges",
+  "state": "unconfigured",
+  "requires_auth": false,
+  "endpoint": null,
+  "http_status": null,
+  "latency_ms": null,
+  "detail": "CWC_GAUGES_URL is not configured. No live feed was queried, so no alert was blended into this score."
+ },
+ {
+  "provider": "bhuvan_hazards",
+  "state": "unconfigured",
+  "requires_auth": false,
+  "endpoint": null,
+  "http_status": null,
+  "latency_ms": null,
+  "detail": "BHUVAN_HAZARDS_URL is not configured. No live feed was queried, so no alert was blended into this score."
+ }
+]

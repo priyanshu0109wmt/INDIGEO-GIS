@@ -1,0 +1,57 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+!frontend/.env.example
+
+# Local/runtime data
+*.db
+*.db-shm
+*.db-wal
+*.duckdb
+*.duckdb.wal
+*.log
+*.err.log
+data/http_cache/
+data/uploads/
+data/probes/
+data/processed/
+
+# Frontend build and dependencies
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.pnp/
+frontend/build/
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts
+
+# Coverage and generated artifacts
+coverage/
+htmlcov/
+ml/artifacts/
+ml/evaluation/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Scratch and presentation outputs
+_l.json
+_r.json
+_rv.json
+_s.json
+_smoke.json
+_sweep.json
+_*.json
+temp_docx_pics/
