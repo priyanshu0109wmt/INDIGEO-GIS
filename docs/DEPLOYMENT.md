@@ -2,12 +2,12 @@
 
 ## Render deployment
 
-The repository contains a Render Blueprint at `render.yaml`. It creates two services and a
-persistent data disk:
+The repository contains a Render Blueprint at `render.yaml`. It creates two free web services:
 
 - `indigeo-api` from `backend/Dockerfile`, exposed through HTTPS on port 8000.
 - `indigeo-web` from `frontend/Dockerfile`, exposed through HTTPS on port 3000.
-- `indigeo-data`, mounted at `/data`, for SQLite, DuckDB and provider caches.
+- `indigeo-data` is not attached because Render persistent disks require a paid plan. SQLite,
+  analyses and provider caches are therefore ephemeral and may be cleared when the instance restarts.
 
 On its first run, the API copies the repository's seeded spatial database to `/data` when the
 disk is empty. Restarting or redeploying does not overwrite that database because the copy only
@@ -21,7 +21,6 @@ unchanged or all hostname settings must be updated together:
 | API service hostname | `indigeo-api.onrender.com` |
 | Web service hostname | `indigeo-web.onrender.com` |
 | API public URL | `https://indigeo-api.onrender.com/api/v1` |
-| API persistent disk | `/data`, 1 GB |
 
 Before creating the Blueprint, choose a real application contact and enter it in the
 `NOMINATIM_USER_AGENT` secret when Render prompts for it. A NASA FIRMS key is optional; leave

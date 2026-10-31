@@ -2,14 +2,10 @@ services:
   - type: web
     name: indigeo-api
     runtime: docker
-    plan: starter
+    plan: free
     dockerfilePath: ./backend/Dockerfile
     dockerContext: .
     healthCheckPath: /api/v1/health
-    disk:
-      name: indigeo-data
-      mountPath: /data
-      sizeGB: 1
     envVars:
       - key: ENVIRONMENT
         value: production
@@ -39,7 +35,7 @@ services:
   - type: web
     name: indigeo-web
     runtime: docker
-    plan: starter
+    plan: free
     dockerfilePath: ./frontend/Dockerfile
     dockerContext: ./frontend
     healthCheckPath: /
