@@ -1,5 +1,40 @@
 # Deploying IndiGeo
 
+## Render deployment
+
+The repository contains a Render Blueprint at `render.yaml`. It creates two services and a
+persistent data disk:
+
+- `indigeo-api` from `backend/Dockerfile`, exposed through HTTPS on port 8000.
+- `indigeo-web` from `frontend/Dockerfile`, exposed through HTTPS on port 3000.
+- `indigeo-data`, mounted at `/data`, for SQLite, DuckDB and provider caches.
+
+On its first run, the API copies the repository's seeded spatial database to `/data` when the
+disk is empty. Restarting or redeploying does not overwrite that database because the copy only
+occurs when `/data/indigeo_spatial.duckdb` is absent.
+
+Create the Blueprint in Render from the repository. The default service names should remain
+unchanged or all hostname settings must be updated together:
+
+| Render setting | Default value |
+|---|---|
+| API service hostname | `indigeo-api.onrender.com` |
+| Web service hostname | `indigeo-web.onrender.com` |
+| API public URL | `https://indigeo-api.onrender.com/api/v1` |
+| API persistent disk | `/data`, 1 GB |
+
+Before creating the Blueprint, choose a real application contact and enter it in the
+`NOMINATIM_USER_AGENT` secret when Render prompts for it. A NASA FIRMS key is optional; leave
+`FIRMS_MAP_KEY` empty when it is not configured.
+
+After deployment, verify both services, then run:
+
+```bash
+python scripts/verify_deployment.py \
+  --api-base https://indigeo-api.onrender.com/api/v1 \
+  --frontend-origin https://indigeo-web.onrender.com
+```
+
 Three things had to change before this stack could leave `localhost`:
 
 1. **The API origin is configuration, not code.** `frontend/src/lib/api.ts` reads

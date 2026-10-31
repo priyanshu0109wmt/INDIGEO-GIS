@@ -22,10 +22,11 @@ RUN apt-get update \
 
 WORKDIR /app
 
-COPY requirements.lock.txt requirements.txt ./
+COPY backend/requirements.lock.txt backend/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.lock.txt
 
-COPY app ./app
+COPY backend/app ./app
+COPY data/indigeo_spatial.duckdb /seed/indigeo_spatial.duckdb
 
 # All writable state lives under /data so it can be a named volume.
 ENV DATA_DIR=/data \

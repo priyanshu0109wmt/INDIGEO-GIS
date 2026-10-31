@@ -6,6 +6,8 @@ from __future__ import annotations
 """
 
 from contextlib import asynccontextmanager
+from pathlib import Path
+import shutil
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -25,6 +27,15 @@ async def lifespan(app: FastAPI):
     """Create the relational schema if missing; never ingest from a web worker."""
     from .core.database import init_schema
     from .services.jobs import reconcile_interrupted_jobs
+
+    # Render mounts persistent disks over /data. Copy a known-good spatial database into
+    # an empty disk on first boot so a fresh deployment is immediately usable.
+    spatial_path = Path(settings.spatial_duckdb_path)
+    seed_path = Path("/seed/indigeo_spatial.duckdb")
+    if not spatial_path.exists() and seed_path.is_file():
+        spatial_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(seed_path, spatial_path)
+        log.info("seeded spatial database at %s", spatial_path)
 
     try:
         init_schema()

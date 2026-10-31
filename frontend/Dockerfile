@@ -14,7 +14,7 @@ FROM node:22-alpine AS build
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-ARG NEXT_PUBLIC_API_BASE
+ARG NEXT_PUBLIC_API_BASE=https://indigeo-api.onrender.com/api/v1
 ENV NEXT_PUBLIC_API_BASE=$NEXT_PUBLIC_API_BASE
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build

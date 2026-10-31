@@ -1,0 +1,48 @@
+services:
+  - type: web
+    name: indigeo-api
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/v1/health
+    disk:
+      name: indigeo-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: DATA_DIR
+        value: /data
+      - key: DATABASE_URL
+        value: sqlite:////data/indigeo_relational.db
+      - key: SPATIAL_DUCKDB_PATH
+        value: /data/indigeo_spatial.duckdb
+      - key: UPLOADS_DIR
+        value: /data/uploads
+      - key: LAYERS_DIR
+        value: /data/layers
+      - key: DEM_DIR
+        value: /data/dem
+      - key: PROVIDER_CACHE_DIR
+        value: /data/http_cache
+      - key: ARTIFACTS_DIR
+        value: /data/artifacts
+      - key: CORS_ORIGINS
+        value: https://indigeo-web.onrender.com
+      - key: NOMINATIM_USER_AGENT
+        sync: false
+      - key: FIRMS_MAP_KEY
+        sync: false
+
+  - type: web
+    name: indigeo-web
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./frontend/Dockerfile
+    dockerContext: ./frontend
+    healthCheckPath: /
+    envVars:
+      - key: NEXT_PUBLIC_API_BASE
+        value: https://indigeo-api.onrender.com/api/v1
